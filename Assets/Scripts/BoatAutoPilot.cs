@@ -5,30 +5,6 @@ using UnityEngine;
 
 public class BoatAutoPilot : MonoBehaviour
 {
-    [Range(0, 10)]
-    public float maxSpeed = 3f;
-
-    [Range(0.1f, 45f)]
-    public float steeringSpeed = 4.5f;
-
-    [Range(.01f, .5f)]
-    public float maxForce = .03f;
-
-    [Range(1, 10)]
-    public float neighborhoodRadius = 4f;
-
-    [Range(0.1f, 10f)]
-    public float separationRadius = 2.4f;
-
-    [Range(0, 3)]
-    public float separationAmount = 1.1f;
-
-    [Range(0, 3)]
-    public float cohesionAmount = 0.3f;
-
-    [Range(0, 3)]
-    public float alignmentAmount = 0.5f;
-
     private Vector3 velocity = Vector3.zero;
 
     private void Start()
@@ -39,7 +15,7 @@ public class BoatAutoPilot : MonoBehaviour
 
     private void Update()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, neighborhoodRadius);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, BoatManager.Singleton.neighborhoodRadius);
         List<BoatAutoPilot> boats = colliders.Select(collider => collider.GetComponent<BoatAutoPilot>()).ToList();
         boats.Remove(this);
 
@@ -53,9 +29,9 @@ public class BoatAutoPilot : MonoBehaviour
     {
         Vector3 acceleration = Vector3.zero;
 
-        acceleration += ComputeAlignment(boats) * alignmentAmount;
-        acceleration += ComputeSeparation(boats) * separationAmount;
-        acceleration += ComputeCohesion(boats) * cohesionAmount;
+        acceleration += ComputeAlignment(boats) * BoatManager.Singleton.alignmentAmount;
+        acceleration += ComputeSeparation(boats) * BoatManager.Singleton.separationAmount;
+        acceleration += ComputeCohesion(boats) * BoatManager.Singleton.cohesionAmount;
 
         return acceleration;
     }
@@ -63,7 +39,7 @@ public class BoatAutoPilot : MonoBehaviour
     private void UpdateVelocity(Vector3 acceleration)
     {
         velocity += acceleration;
-        velocity = LimitMagnitude(velocity, maxSpeed);
+        velocity = LimitMagnitude(velocity, BoatManager.Singleton.maxSpeed);
     }
 
     private void UpdatePosition(Vector3 velocity)
@@ -74,7 +50,7 @@ public class BoatAutoPilot : MonoBehaviour
     private void UpdateRotation(Vector3 velocity)
     {
         //transform.forward = velocity;
-        transform.forward = Vector3.RotateTowards(transform.forward, velocity, Time.deltaTime * steeringSpeed, float.MaxValue);
+        transform.forward = Vector3.RotateTowards(transform.forward, velocity, Time.deltaTime * BoatManager.Singleton.steeringSpeed, float.MaxValue);
     }
 
     private Vector3 ComputeAlignment(IEnumerable<BoatAutoPilot> boats)
@@ -88,7 +64,7 @@ public class BoatAutoPilot : MonoBehaviour
         }
 
         velocity /= boats.Count();
-        var steer = Steer(velocity.normalized * maxSpeed);
+        var steer = Steer(velocity.normalized * BoatManager.Singleton.maxSpeed);
         return steer;
     }
 
@@ -104,14 +80,14 @@ public class BoatAutoPilot : MonoBehaviour
 
         var average = sumPositions / boats.Count();
         var direction = average - transform.position;
-        var steer = Steer(direction.normalized * maxSpeed);
+        var steer = Steer(direction.normalized * BoatManager.Singleton.maxSpeed);
         return steer;
     }
 
     private Vector3 ComputeSeparation(IEnumerable<BoatAutoPilot> boats)
     {
         var direction = Vector3.zero;
-        boats = boats.Where(boat => Vector3.Distance(transform.position, boat.transform.position) <= separationRadius);
+        boats = boats.Where(boat => Vector3.Distance(transform.position, boat.transform.position) <= BoatManager.Singleton.separationRadius);
         if (!boats.Any()) return direction;
 
         foreach (var boat in boats)
@@ -121,14 +97,14 @@ public class BoatAutoPilot : MonoBehaviour
         }
 
         direction /= boats.Count();
-        var steer = Steer(direction.normalized * maxSpeed);
+        var steer = Steer(direction.normalized * BoatManager.Singleton.maxSpeed);
         return steer;
     }
 
     private Vector3 Steer(Vector3 desiredVelocity)
     {
         var steer = desiredVelocity - velocity;
-        steer = LimitMagnitude(steer, maxForce);
+        steer = LimitMagnitude(steer, BoatManager.Singleton.maxForce);
         return steer;
     }
 
@@ -146,10 +122,10 @@ public class BoatAutoPilot : MonoBehaviour
     {
         // Neighborhood radius.
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, neighborhoodRadius);
+        Gizmos.DrawWireSphere(transform.position, BoatManager.Singleton.neighborhoodRadius);
 
         // Separation radius.
         Gizmos.color = Color.salmon;
-        Gizmos.DrawWireSphere(transform.position, separationRadius);
+        Gizmos.DrawWireSphere(transform.position, BoatManager.Singleton.separationRadius);
     }
 }
