@@ -21,18 +21,8 @@ public class BoatManager : MonoBehaviour
         }
     }
 
-    
 
-    [SerializeField]
-    private GameObject boatHouseA = null;
-
-    [SerializeField]
-    private GameObject boatHouseB = null;
-
-    [SerializeField]
-    private GameObject boatHouseC = null;
-
-
+    private List<BoatAutoPilot> boatsList = new List<BoatAutoPilot>();
     private List<GameObject> boatsInstances = new List<GameObject>();
 
     private void Awake()
@@ -50,52 +40,43 @@ public class BoatManager : MonoBehaviour
 
     private void Start()
     {
-        // On génère un nombre de bateau au départ.
         for (int i = 0; i < BoatPara.Spawning_Count; i++)
         {
-            // On choisi une position et une orientation au hasard dans la zone de jeu.
-            Vector3 randomPosition = new Vector3((Random.value - 0.5f) * BoatPara.Width, 0f, (Random.value - 0.5f) * BoatPara.Length);
-            Quaternion randomRotation = Quaternion.Euler(0f, Random.value * 360f, 0f);
-            SpawnBoat(randomPosition, randomRotation);
+            CreateBoat(Vector3.zero);
         }
     }
 
-    private void SpawnBoat(Vector3 worldPosition, Quaternion worldRotation)
+    //private void SpawnBoat(Vector3 worldPosition, Quaternion worldRotation)
+    //{
+    //    // Le bateau qu'on va instancier
+    //    GameObject boatToInstanciate = GetRandomBoat();
+
+    //    // Créer une instance (qu'on attache directement en enfant de notre transform)
+    //    GameObject boatInstance = Instantiate(boatToInstanciate, worldPosition, worldRotation, transform);
+
+    //    // Rajouter cette instance à notre liste d'instances
+    //    boatsInstances.Add(boatInstance);
+    //}
+    private Vector3 GetRandomWorldPosition()
     {
-        // Le bateau qu'on va instancier
-        GameObject boatToInstanciate = GetRandomBoat();
+        float x = Random.Range(-BoatPara.Width * 0.5f, BoatPara.Width * 0.5f);
+        float z = Random.Range(-BoatPara.Length * 0.5f, BoatPara.Length * 0.5f);
 
-        // Créer une instance (qu'on attache directement en enfant de notre transform)
-        GameObject boatInstance = Instantiate(boatToInstanciate, worldPosition, worldRotation, transform);
+        return transform.position + new Vector3(x, 0f, z);
+    }
+    private void CreateBoat(Vector3 WorldPosition)
+    {
+        int randomIndex = Random.Range(0, BoatPrefab.Length);
+        GameObject boat = BoatPrefab[randomIndex];
 
-        // Rajouter cette instance à notre liste d'instances
+        GameObject boatInstance = Instantiate(boat, transform);
+        boatInstance.name = boat.name;
+        boatInstance.transform.position = GetRandomWorldPosition();
+
         boatsInstances.Add(boatInstance);
+        boatsList.Add(boatInstance.GetComponent<BoatAutoPilot>());
     }
-
-    private GameObject GetRandomBoat()
-    {
-        GameObject randomBoat = null;
-
-        // On prend une variable aléatoire entre 0.000 et 1.000
-        float randomValue = Random.value;
-        if (randomValue < 0.333f)
-        {
-            randomBoat = boatHouseA;
-        }
-        else if (randomValue < 0.666f)
-        {
-            randomBoat = boatHouseB;
-        }
-        else
-        {
-            randomBoat = boatHouseC;
-        }
-        // TODO Je ne vais pas rajouter un "if..else" pour chaque nouveau bateau ?!
-        // Il devrait y avoir un moyen de réunir mes Prefab dans une liste et
-        // d'en choisir un selon sa place dans la liste...
-
-        return randomBoat;
-    }
+    
 
     private void LateUpdate()
     {
@@ -106,7 +87,7 @@ public class BoatManager : MonoBehaviour
     {
         // On vérifie que nos bateaux sont dans la zone de jeu
         // On les téléporte au côté opposé s'ils en sortent
-        int boatCount = boatsInstances.Count;
+        int boatCount = boatsList.Count;
         for (int i = 0; i < boatCount; i++)
         {
             GameObject boatInstance = boatsInstances[i];
