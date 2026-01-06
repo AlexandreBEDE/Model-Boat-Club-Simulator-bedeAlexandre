@@ -4,7 +4,7 @@ using UnityEngine;
 public class BoatManager : MonoBehaviour
 {
     private static BoatManager singleton = null;
-    public SO_BoatManager BoatPara; // Référence au scriptable object
+    public SO_BoatManager BoatPara;
     public static BoatManager Singleton
     {
         get
@@ -19,6 +19,16 @@ public class BoatManager : MonoBehaviour
     }
 
     
+
+    [SerializeField]
+    private GameObject boatHouseA = null;
+
+    [SerializeField]
+    private GameObject boatHouseB = null;
+
+    [SerializeField]
+    private GameObject boatHouseC = null;
+
 
     private List<GameObject> boatsInstances = new List<GameObject>();
 
