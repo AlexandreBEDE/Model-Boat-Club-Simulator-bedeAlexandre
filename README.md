@@ -26,8 +26,8 @@ J'ai commencé à déplacer certaines variables dans le `BoatManager.cs` : ça r
 Je crois qu'on peut utiliser les [ScriptableObject](https://docs.unity3d.com/6000.2/Documentation/Manual/class-ScriptableObject.html) pour ça ?  
   
 Peut importe la solution que tu utilise tant que je peux :  
-- - [ ] Faire mes modifications sur leur comportement en mode Play et que ça reste sauvegardé **automatiquement**, que je quitte le mode Play ou non.  
-- - [ ] Que toutes les instances de bateau de la même famille (e.g. "Boat Tow A" et Boat Tow B" font parties de la famille "Tow") aient **le même comportement**. Si je change une valeur du comportement toutes les instances qui référencent ce comportement seront affectées.   
+- - [x] Faire mes modifications sur leur comportement en mode Play et que ça reste sauvegardé **automatiquement**, que je quitte le mode Play ou non.  
+- - [x] Que toutes les instances de bateau de la même famille (e.g. "Boat Tow A" et Boat Tow B" font parties de la famille "Tow") aient **le même comportement**. Si je change une valeur du comportement toutes les instances qui référencent ce comportement seront affectées.   
   
 **:information_source: Une fois que c'est fait : `commit`, `push` et passe à la suite :smile:**  
   
@@ -126,3 +126,4 @@ C.a.d que plutôt que d'avoir une simple collection de nos bateaux (et qu'ils ai
   J'utilise [ScreenToGif](https://www.screentogif.com/) mais tu peux utiliser le logiciel que tu souhaite.  
 
 **:information_source: Une fois que c'est fait : `commit`, `push` et passe à la suite :smile:**  
+
