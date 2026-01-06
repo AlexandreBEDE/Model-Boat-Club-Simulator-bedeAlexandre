@@ -6,7 +6,8 @@ Voici une idée de projet que j'ai commencé ce weekend.
 Je me suis inspiré de [ce projet](https://github.com/RafaelKuebler/Flocking) pour la base de code.  
 J'ai commencé par importer des modèles 3D de bateaux.  
 
-![Preview Model Boat Club Simulator](model_boat_club_simulator_preview.gif)
+![Boat-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/6bb25c2a-74b0-4313-991f-e0b0c495fb57)
+
 
 J'ai créé 2~3 [Prefab](https://docs.unity3d.com/6000.2/Documentation/Manual/Prefabs.html) mais je me retrouve face à plusieurs problèmes et j'aurais besoin de ton coup de mains !  
   
@@ -126,5 +127,6 @@ C.a.d que plutôt que d'avoir une simple collection de nos bateaux (et qu'ils ai
   J'utilise [ScreenToGif](https://www.screentogif.com/) mais tu peux utiliser le logiciel que tu souhaite.  
 
 **:information_source: Une fois que c'est fait : `commit`, `push` et passe à la suite :smile:**  
+
 
 
