@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 899efb770d5c1f44fb07ada67d34d290, type: 3}
   m_Name: SO_BoatManager
   m_EditorClassIdentifier: Assembly-CSharp::SO_BoatManager
-  width: 16
-  length: 9
+  width: 33
+  length: 17
   SpawningCount: 50
-  maxSpeed: 6
+  maxSpeed: 4.05
   steeringSpeed: 4.5
   maxForce: 0.03
-  neighborhoodRadius: 4
+  neighborhoodRadius: 9.35
   separationRadius: 2.4
   separationAmount: 1.1
-  cohesionAmount: 0.3
-  alignmentAmount: 0.5
+  cohesionAmount: 0.53
+  alignmentAmount: 0.98
