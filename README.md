@@ -36,7 +36,7 @@ Peut importe la solution que tu utilise tant que je peux :
 Si on "retire" les variables du script on ne pourra plus les éditer en sélectionnant directement un bateau dans la scène ?  
 En imaginant que j'ai pleins de bateaux différents avec chacun leur variables/comportement unique ça risque de nous faire faire beaucoup d'aller/retour entre le script et l'endroit où se trouve ces variable (plusieurs cliques supplémentaire par bateau, l'horreur pour éditer les données) !  
   
-- [ ] Tu pense pouvoir modifier l'éditeur (l'endroit où sont affichées nos variables) afin de les "faire revenir" **visuellement** dans le contexte d'édition (c.a.d. là ou elles étaient à la base, au niveau de notre script `BoatAutoPilot.cs`) ?  
+- [x] Tu pense pouvoir modifier l'éditeur (l'endroit où sont affichées nos variables) afin de les "faire revenir" **visuellement** dans le contexte d'édition (c.a.d. là ou elles étaient à la base, au niveau de notre script `BoatAutoPilot.cs`) ?  
   
 J'ai entendu dire que l'inspecteur de Unity est modifiable, notamment via [CustomEditor](https://docs.unity3d.com/6000.2/Documentation/Manual/editor-CustomEditors.html), [SerializedObject](https://docs.unity3d.com/ScriptReference/SerializedProperty.html) et [SerializedProperty](https://docs.unity3d.com/ScriptReference/SerializedProperty.html).  
   
@@ -68,7 +68,7 @@ Le soucis c'est que je dois le faire à chaque fois que je créé un nouveau Pre
 Je pourrais modifier l'échelle racine de mon Prefab mais **il est recommandé de ne pas modifier l'échelle du transform "racine" d'une entité !**  
 Et surtout si jamais on décide de changer l'échelle du projet (à 30 ou 60% par exemple) je vais devoir le refaire sur tout mes Prefabs ?!  
 
-- [ ] Il faudrait trouver un moyen simple que cette échelle soit prédéfinie en amont et à un seul endroit.
+- [x] Il faudrait trouver un moyen simple que cette échelle soit prédéfinie en amont et à un seul endroit.
   
 Tiens d'ailleurs une fois que tu aura fais ça est-ce que tu peux **réduire la taille des bateaux à 37.5%** ?  
   
@@ -82,7 +82,7 @@ Si je décide que "Boat Speed A" et "Boat Speed B" ont le même comportement et 
   
 **Est-ce que tu pourrais configurer les Prefabs d'une même famille pour que le comportement d'une variante visuel soit définie en amont de cette dernière ?**  
   
-  - [ ] Que toutes les variantes visuelles d'une même famille aient le même comportement.  
+  - [x] Que toutes les variantes visuelles d'une même famille aient le même comportement.  
   
 **:information_source: Une fois que c'est fait : `commit`, `push` et passe à la suite :smile:**  
   
@@ -96,7 +96,7 @@ J'ai commencé à modifier le script qui s'occupe de faire apparaitre les instan
 Comme tu peux le voir dans le script `BoatManager.cs` j'ai commencé à rajouter deux autres variables/références pour les Prefab "Boat House B" et "Boat House C" (habilement nommées `boatHouseB` et `boatHouseC`).  
 Mais on ne va pas faire ça pour tout nos Prefab ?!  
 Il devrait y avoir un moyen de réunir ces familles dans une grande collection; non ?  
-- [ ] Est-ce que tu aurais une solution pour ne plus qu'on ai besoin de modifier le script à chaque fois qu'on a une nouvelle variante de bateau ?  
+- [x] Est-ce que tu aurais une solution pour ne plus qu'on ai besoin de modifier le script à chaque fois qu'on a une nouvelle variante de bateau ?  
   
 **:information_source: Une fois que c'est fait : `commit`, `push` et passe à la suite :smile:**  
   
@@ -105,7 +105,7 @@ Il devrait y avoir un moyen de réunir ces familles dans une grande collection; 
 J'ai aussi rajouté une méthode pour choisir un bateau au hasard, appelée `GetRandomBoat()` dans `BoatManager.cs`.  
 Le soucis c'est que non seulement je ne veux pas écrire des `if {} else if {}` à l'infini mais en plus si on réuni toutes nos variantes dans une collection le script ne saura plus spécifiquement le nombre de variantes ?  
 Enfin si, il pourra le savoir via la propriété `Length` ou `Count` mais ça nous donne juste un nombre entier.  
-- [ ] Il faudrait pouvoir choisir un nombre au hasard et *pointer son index* sur une variante et la renvoyer pour qu'elle soit instanciée.  
+- [x] Il faudrait pouvoir choisir un nombre au hasard et *pointer son index* sur une variante et la renvoyer pour qu'elle soit instanciée.  
   
 **:information_source: Une fois que c'est fait : `commit`, `push` et passe à la suite :smile:**  
   
@@ -126,4 +126,5 @@ C.a.d que plutôt que d'avoir une simple collection de nos bateaux (et qu'ils ai
   J'utilise [ScreenToGif](https://www.screentogif.com/) mais tu peux utiliser le logiciel que tu souhaite.  
 
 **:information_source: Une fois que c'est fait : `commit`, `push` et passe à la suite :smile:**  
+
 
