@@ -241,6 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4385f3f32ee5acd469979ee445ac7134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BoatPara: {fileID: 11400000, guid: f0fbfa175df10374488667857bfcf4df, type: 2}
   width: 42
   length: 32
   SpawningCount: 64

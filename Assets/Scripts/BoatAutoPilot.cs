@@ -6,6 +6,7 @@ using UnityEngine;
 public class BoatAutoPilot : MonoBehaviour
 {
     private Vector3 velocity = Vector3.zero;
+    public SO_BoatManager BoatPara; //Référence au scriptable object
 
     private void Start()
     {
@@ -15,7 +16,7 @@ public class BoatAutoPilot : MonoBehaviour
 
     private void Update()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, BoatManager.Singleton.neighborhoodRadius);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, BoatPara.Neighborhood_Radius);
         List<BoatAutoPilot> boats = colliders.Select(collider => collider.GetComponent<BoatAutoPilot>()).ToList();
         boats.Remove(this);
 
@@ -29,9 +30,9 @@ public class BoatAutoPilot : MonoBehaviour
     {
         Vector3 acceleration = Vector3.zero;
 
-        acceleration += ComputeAlignment(boats) * BoatManager.Singleton.alignmentAmount;
-        acceleration += ComputeSeparation(boats) * BoatManager.Singleton.separationAmount;
-        acceleration += ComputeCohesion(boats) * BoatManager.Singleton.cohesionAmount;
+        acceleration += ComputeAlignment(boats) * BoatPara.Alignment_Amount;
+        acceleration += ComputeSeparation(boats) * BoatPara.Separation_Amount;
+        acceleration += ComputeCohesion(boats) * BoatPara.Cohesion_Amount;
 
         return acceleration;
     }
@@ -39,7 +40,7 @@ public class BoatAutoPilot : MonoBehaviour
     private void UpdateVelocity(Vector3 acceleration)
     {
         velocity += acceleration;
-        velocity = LimitMagnitude(velocity, BoatManager.Singleton.maxSpeed);
+        velocity = LimitMagnitude(velocity, BoatPara.Max_Speed);
     }
 
     private void UpdatePosition(Vector3 velocity)
@@ -50,7 +51,7 @@ public class BoatAutoPilot : MonoBehaviour
     private void UpdateRotation(Vector3 velocity)
     {
         //transform.forward = velocity;
-        transform.forward = Vector3.RotateTowards(transform.forward, velocity, Time.deltaTime * BoatManager.Singleton.steeringSpeed, float.MaxValue);
+        transform.forward = Vector3.RotateTowards(transform.forward, velocity, Time.deltaTime * BoatPara.Steering_Speed, float.MaxValue);
     }
 
     private Vector3 ComputeAlignment(IEnumerable<BoatAutoPilot> boats)
@@ -64,7 +65,7 @@ public class BoatAutoPilot : MonoBehaviour
         }
 
         velocity /= boats.Count();
-        var steer = Steer(velocity.normalized * BoatManager.Singleton.maxSpeed);
+        var steer = Steer(velocity.normalized * BoatPara.Max_Speed);
         return steer;
     }
 
@@ -80,14 +81,14 @@ public class BoatAutoPilot : MonoBehaviour
 
         var average = sumPositions / boats.Count();
         var direction = average - transform.position;
-        var steer = Steer(direction.normalized * BoatManager.Singleton.maxSpeed);
+        var steer = Steer(direction.normalized * BoatPara.Max_Speed);
         return steer;
     }
 
     private Vector3 ComputeSeparation(IEnumerable<BoatAutoPilot> boats)
     {
         var direction = Vector3.zero;
-        boats = boats.Where(boat => Vector3.Distance(transform.position, boat.transform.position) <= BoatManager.Singleton.separationRadius);
+        boats = boats.Where(boat => Vector3.Distance(transform.position, boat.transform.position) <= BoatPara.Separation_Radius);
         if (!boats.Any()) return direction;
 
         foreach (var boat in boats)
@@ -97,14 +98,14 @@ public class BoatAutoPilot : MonoBehaviour
         }
 
         direction /= boats.Count();
-        var steer = Steer(direction.normalized * BoatManager.Singleton.maxSpeed);
+        var steer = Steer(direction.normalized * BoatPara.Max_Speed);
         return steer;
     }
 
     private Vector3 Steer(Vector3 desiredVelocity)
     {
         var steer = desiredVelocity - velocity;
-        steer = LimitMagnitude(steer, BoatManager.Singleton.maxForce);
+        steer = LimitMagnitude(steer, BoatPara.Max_Force);
         return steer;
     }
 
@@ -128,10 +129,10 @@ public class BoatAutoPilot : MonoBehaviour
 
         // Neighborhood radius.
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, BoatManager.Singleton.neighborhoodRadius);
+        Gizmos.DrawWireSphere(transform.position, BoatPara.Neighborhood_Radius);
 
         // Separation radius.
         Gizmos.color = Color.salmon;
-        Gizmos.DrawWireSphere(transform.position, BoatManager.Singleton.separationRadius);
+        Gizmos.DrawWireSphere(transform.position, BoatPara.Separation_Radius);
     }
 }
