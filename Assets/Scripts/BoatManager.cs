@@ -5,6 +5,9 @@ public class BoatManager : MonoBehaviour
 {
     private static BoatManager singleton = null;
     public SO_BoatManager BoatPara;
+
+    [SerializeField]
+    private GameObject[] BoatPrefab = new GameObject[0];
     public static BoatManager Singleton
     {
         get

@@ -242,20 +242,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoatPara: {fileID: 11400000, guid: f0fbfa175df10374488667857bfcf4df, type: 2}
-  width: 42
-  length: 32
-  SpawningCount: 64
+  BoatPrefab:
+  - {fileID: 1138331384927246, guid: f4fd60554feb830408409b09d8c5f2d0, type: 3}
+  - {fileID: 7700373110457807037, guid: 841dcf4a470d003429f137b5a721d2e7, type: 3}
+  - {fileID: 7392725791389151796, guid: 5bfebf5c327de58468fda6b48aa4136e, type: 3}
+  - {fileID: 6454221434709467748, guid: a6cca9f4b40bab543bdc523d33a4697d, type: 3}
+  - {fileID: 1967500293870009667, guid: 67a4fafc0e2dcac4186ce6091db6f8c9, type: 3}
   boatHouseA: {fileID: 1138331384927246, guid: f4fd60554feb830408409b09d8c5f2d0, type: 3}
   boatHouseB: {fileID: 1138331384927246, guid: 9d1d0b91403a8814ab6853947579bad9, type: 3}
   boatHouseC: {fileID: 1138331384927246, guid: be18bd8f4343bb14daad0d183019b6aa, type: 3}
-  maxSpeed: 6
-  steeringSpeed: 4.5
-  maxForce: 0.03
-  neighborhoodRadius: 4
-  separationRadius: 2.4
-  separationAmount: 1.1
-  cohesionAmount: 0.3
-  alignmentAmount: 0.5
 --- !u!4 &576343055
 Transform:
   m_ObjectHideFlags: 0
